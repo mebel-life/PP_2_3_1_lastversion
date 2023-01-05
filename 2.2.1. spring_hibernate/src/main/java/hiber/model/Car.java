@@ -12,17 +12,14 @@ public class Car  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long car_id;
 
     @Column(name = "model")
     private String model;
 
     @Column(name = "series")
     private int series;
-
     @OneToOne(mappedBy = "car")
-    //@JoinColumn(name = "user_id", referencedColumnName = "id")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private User user;
 
     public Car() {
@@ -33,12 +30,12 @@ public class Car  {
         this.series = series;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCar_id() {
+        return car_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCar_id(Long car_id) {
+        this.car_id = car_id;
     }
 
     public String getModel() {
@@ -63,5 +60,13 @@ public class Car  {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                ", model='" + model + '\'' +
+                ", series=" + series +
+                '}';
     }
 }

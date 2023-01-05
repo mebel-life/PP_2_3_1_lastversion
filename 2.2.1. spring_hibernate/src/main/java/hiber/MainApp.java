@@ -15,27 +15,31 @@ public class MainApp {
             new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
-      User user1 = new User ("misha", "Lastname2", "user1@mail.ru");
-      Car car = new Car ("volvo", 235);
+//      userService.add(new User("User1", "Lastname1", "user1@mail.ru"));
+//      userService.add(new User("User2", "Lastname2", "user2@mail.ru"));
+//      userService.add(new User("User3", "Lastname3", "user3@mail.ru"));
+//      userService.add(new User("User4", "Lastname4", "user4@mail.ru"));
+      User user1 = new User("User1", "Lastname1", "user1@mail.ru");
+      User user2 = new User("User2", "Lastname2", "user2@mail.ru");
+      Car car1 = new Car("Model1",1);
+      Car car2 = new Car("Model2",2);
+      user1.setCar(car1);
+      user2.setCar(car2);
       userService.add(user1);
-      userService.add(car);
-      //объеденение user и car
-      userService.joinCarUser(user1, car);
-
+      userService.add(user2);
 
       List<User> users = userService.listUsers();
       for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
+         System.out.println(user.toString());
          System.out.println();
       }
-
+      List<Car> cars = userService.listCars();
+      for (Car car : cars) {
+         System.out.println(car.toString());
+         System.out.println();
+      }
+      // поиск юзера по модели и серии авто
+      System.out.println(userService.findUser("Model1",1).toString());
       context.close();
    }
 }
-
-//   Чтобы получить юзера, для инициализации запроса, писать не executeUpdate , а getSingleResult()
-//        Если захотите использовать модель и серию, то в запросе ставьте and.
-//        INNER JOIN в запросе тоже нет, обычный from и where.

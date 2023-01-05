@@ -39,10 +39,11 @@ public class UserServiceImp implements UserService {
       return userDao.listCars();
    }
 
-   @Transactional
+   @Transactional(readOnly = true)
    @Override
-   public void joinCarUser(User user, Car car) {
-      userDao.joinCarUser(user, car);
+   public User findUser(String model, int series) {
+      return userDao.findUser(model, series);
    }
+
 
 }

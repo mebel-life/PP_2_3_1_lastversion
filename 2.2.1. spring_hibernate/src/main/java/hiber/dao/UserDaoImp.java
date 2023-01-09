@@ -1,52 +1,32 @@
 package hiber.dao;
 
-import hiber.model.Car;
-import hiber.model.User;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import hiber.entity.User;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Component
+@Transactional
 public class UserDaoImp implements UserDao {
-
-   @Autowired
-   private SessionFactory sessionFactory;
+   @PersistenceContext
+   EntityManager entityManager;
 
    @Override
    public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
-   }
-   @Override
-   public void add(Car car) {
-      sessionFactory.getCurrentSession().save(car);
-
+      entityManager.persist(user);
    }
 
    @Override
-   @SuppressWarnings("unchecked")
    public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
+      List<User> user = entityManager.createQuery("from users", User.class).getResultList();
+      return user;
    }
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<Car> listCars() {
-      TypedQuery<Car> query=sessionFactory.getCurrentSession().createQuery("from Car");
-      return query.getResultList();
-   }
-
-   @Override
-   // метод поиска юзера по модели и серии авто
-   public User findUser(String model, int series) {
-      Query query = sessionFactory.getCurrentSession().createQuery("from User as u join fetch u.car where u.car.model = :model and u.car.series = :series")
-         .setParameter("model", model)
-         .setParameter("series", series);
-      return (User)query.getSingleResult();
-   }
-
-
 }
+

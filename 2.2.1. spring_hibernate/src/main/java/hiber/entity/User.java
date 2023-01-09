@@ -1,6 +1,4 @@
-package hiber.model;
-
-import org.hibernate.annotations.Cascade;
+package hiber.entity;
 
 import javax.persistence.*;
 
@@ -14,31 +12,30 @@ public class User {
    private Long id;
 
    @Column(name = "name")
-   private String firstName;
+   private String name;
 
    @Column(name = "last_name")
    private String lastName;
 
+   @Column(name = "age")
+   private int age;
+
    @Column(name = "email")
    private String email;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "cars_id")
-   private Car car;
+   @Column(name = "password")
+   private String password;
+
+
 
    public User() {}
-   
-//   public User(String firstName, String lastName, String email, Car car) {
-//      this.firstName = firstName;
-//      this.lastName = lastName;
-//      this.email = email;
-//      this .car = car;
-//   }
-   public User(String firstName, String lastName, String email) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.email = email;
 
+   public User(String name, String lastName, int age, String email, String password) {
+      this.name = name;
+      this.lastName = lastName;
+      this.age = age;
+      this.email = email;
+      this.password = password;
    }
 
    public Long getId() {
@@ -49,12 +46,12 @@ public class User {
       this.id = id;
    }
 
-   public String getFirstName() {
-      return firstName;
+   public String getName() {
+      return name;
    }
 
-   public void setFirstName(String firstName) {
-      this.firstName = firstName;
+   public void setName(String name) {
+      this.name = name;
    }
 
    public String getLastName() {
@@ -65,6 +62,14 @@ public class User {
       this.lastName = lastName;
    }
 
+   public int getAge() {
+      return age;
+   }
+
+   public void setAge(int age) {
+      this.age = age;
+   }
+
    public String getEmail() {
       return email;
    }
@@ -73,20 +78,23 @@ public class User {
       this.email = email;
    }
 
-   public Car getCar() {
-      return car;
+   public String getPassword() {
+      return password;
    }
 
-   public void setCar(Car car) { this.car = car; }
+   public void setPassword(String password) {
+      this.password = password;
+   }
 
    @Override
    public String toString() {
       return "User{" +
               "id=" + id +
-              ", firstName='" + firstName + '\'' +
+              ", name='" + name + '\'' +
               ", lastName='" + lastName + '\'' +
+              ", age=" + age +
               ", email='" + email + '\'' +
-              ", car=" + car.toString() +
+              ", password='" + password + '\'' +
               '}';
    }
 }

@@ -28,4 +28,20 @@ public class UserServiceImp implements UserService {
       return userDao.listUsers();
    }
 
+   @Transactional
+   @Override
+   public User getUser(int id) {
+      return userDao.getUser(id);
+   }
+   @Transactional
+   @Override
+   public void updateUser(User user) {
+      userDao.updateUser(user);
+   }
+   @Transactional
+   @Override
+   public void removeUser(User user) {
+      userDao.removeUser(user);
+   }
+
 }

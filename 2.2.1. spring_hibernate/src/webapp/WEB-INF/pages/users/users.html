@@ -9,7 +9,7 @@
 <div th:switch="${users}">
     <h2 th:case="null">No users found!</h2>
     <div th:case="*">
-        <h2>Users</h2>
+        <h2>Пользователи</h2>
 
             <table>
                 <thead>
@@ -33,15 +33,18 @@
                     <td th:text="${user.getAge()}"/></td>
                     <td th:text="${user.getEmail()}"/></td>
                     <td th:text="${user.getPassword()}"/></td>
-                    <td><a th:href="@{/users/update/{id}(id=${user.getId()})}">Edit</a></td>
-                    <td><a th:href="@{/users/delete/{id}(id=${user.getId()})}">Delete</a></td>
+                    <td><a th:href="@{/users/update/{id}(id=${user.getId()})}">
+                        <input type="submit" value="Изменить пользователя"></a></td>
+                    <td><a th:href="@{/users/delete/{id}(id=${user.getId()})}">
+                        <input type="submit" value="Удалить пользователя"></a></td>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
     </div>
-    <p><a href = "/users/create">Create user</a></p>
+    <p><a href = "/users/create"><input type="submit" value="Создать пользователя"></a></p>
+
 
 
 
